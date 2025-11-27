@@ -11,6 +11,7 @@ type Config struct {
 	PORT                string
 	DB_URL              string
 	REDIS_URL           string
+	REDIS_PASSWORD      string
 	JWT_SECRET          string
 	JWT_EXPIRATION_HOURS int
 	RATE_LIMIT          int
@@ -64,15 +65,8 @@ func LoadConfig() (*Config, error) {
 	redisHost := getEnv("REDIS_HOST", "")
 	redisPort := getEnv("REDIS_PORT", "")
 	redisPass := getEnv("REDIS_PASSWORD", "")
-	if redisHost == "" || redisPort == "" {
-		return nil, fmt.Errorf("redis env vars missing")
-	}
-	if redisPass == "" {
-		config.REDIS_URL = fmt.Sprintf("redis://%s:%s/0", redisHost, redisPort)
-	} else {
-		config.REDIS_URL = fmt.Sprintf("redis://:%s@%s:%s/0", redisPass, redisHost, redisPort)
-	}
-
+	config.REDIS_PASSWORD = redisPass
+	config.REDIS_URL = fmt.Sprintf("%s:%s", redisHost, redisPort)
 	return config, nil
 }
 
