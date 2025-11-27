@@ -278,7 +278,3 @@ All errors follow the format:
   "error": "message"
 }
 ```
-
----
-
-If you want this in a canvas file or want it split into README.md plus a separate docs file, say the word.
